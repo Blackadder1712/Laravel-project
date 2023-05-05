@@ -28,12 +28,14 @@ Route::get('/', function () {
 
 //single listing 
 
-Route::get('/listings/{id}', function($id)
+Route::get('/listings/{listing}', function(Listing $listing)
 {
     return view('listing',
     [
-        'listing' => Listing::find($id)//look for id within listing model
+        'listing' => $listing //set it to variable 
     ]);
+
+ 
 });
 
 
