@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\ListingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Listing;//bring in model
@@ -17,26 +17,12 @@ use App\Models\Listing;//bring in model
 
 // all listings 
 
-Route::get('/', function () {
-    return view('listings', 
-    [
-        'heading' => 'Latest Listings',
-        'listings' => Listing::all()// model containing listings 
-      
-    ]);//file containing our header and data we wanna pass etc
-});
+Route::get('/', [ListingController::class, 'index']);
 
 //single listing 
 
-Route::get('/listings/{listing}', function(Listing $listing)
-{
-    return view('listing',
-    [
-        'listing' => $listing //set it to variable 
-    ]);
-
- 
-});
+// Single Listing
+Route::get('/listings/{listing}', [ListingController::class, 'show']);
 
 
 

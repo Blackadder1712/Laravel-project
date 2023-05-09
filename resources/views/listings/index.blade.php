@@ -3,6 +3,8 @@
 @section('content') <!--put/wrap in a section-->
 
 @include('partials._hero') <!--include hero html-->
+
+@include('partials._search') <!--include search bar area -->
     
 <div
 class="lg:grid lg:grid-cols-2 gap-4 space-y-4 md:space-y-0 mx-4">  <!--grid that holds listings-->
