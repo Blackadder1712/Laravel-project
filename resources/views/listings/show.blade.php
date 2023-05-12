@@ -13,7 +13,7 @@
             >
                 <img
                     class="w-48 mr-6 mb-6"
-                    src="{{asset('images/no-image.png')}}"
+                    src="{{$listing->logo ? asset('storage/' . $listing->logo) : asset('/images/no-image.png')}}"
                     alt=""
                 />
 
@@ -51,6 +51,20 @@
                     </div>
                 </div>
             </div>
+        </x-card>
+        <x-card>
+            <a href="/listings/{{$listing->id}}/edit"> <!--edit button with pencil logo -->
+                <i class="fa-solid fa-pencil"></i>Edit
+            </a>
+
+            <form method="POST" action="/listings/{{$listing->id}}">
+              @csrf
+              @method('DELETE')
+              <button class="text-red-500">
+                <i class="fa-solid fa-trash"></i> <!-- bin icon-->
+                Delete
+              </button>
+            </form><!--send delete request-->
         </x-card>
     </div>
 

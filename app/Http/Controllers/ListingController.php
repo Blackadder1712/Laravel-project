@@ -12,7 +12,8 @@ class ListingController extends Controller
     public function index()
     { 
         return view('listings.index',
-        ['listings' => Listing::latest()->filter(request(['tag', 'search']))->get() // sort by latest post an
+        ['listings' => Listing::latest()->filter(request(['tag',
+         'search']))->paginate(4) // items on each page 
         ]);
     }
     
@@ -34,6 +35,7 @@ class ListingController extends Controller
     //store listing data 
     public function store(Request $request)
     {
+        
         $formFields = $request->validate(  //validate user input 
             [
              'title' => 'required',
@@ -46,10 +48,56 @@ class ListingController extends Controller
             ]
             );
 
+            if($request->hasFile('logo'))//check if image uploaded
+            {
+                $formFields['logo'] = $request->file('logo')->store('logos', 'public'); //file path in database and upload 
+            }
+
             Listing::create($formFields);
 
             
 
             return redirect('/')->with('message', 'Listing created successfully!'); //flash message 
     }
+
+    //Show edit form 
+    public function edit(Listing $listing)
+    {
+        return view('listings.edit', ['listing' => $listing]); //pass selected listing into editing 
+    }
+
+      //update listing data 
+      public function update(Request $request, Listing $listing)
+      {
+          
+          $formFields = $request->validate(  //validate user input 
+              [
+               'title' => 'required',
+               'company' => ['required'],
+               'location' => 'required',
+               'website' => 'required',
+               'email' => ['required', 'email'],
+               'tags' => 'required', 
+               'description' =>'required'
+              ]
+              );
+  
+              if($request->hasFile('logo'))//check if image uploaded
+              {
+                  $formFields['logo'] = $request->file('logo')->store('logos', 'public'); //file path in database and upload 
+              }
+  
+              $listing->update($formFields);
+  
+              
+  
+              return back()->with('message', 'Listing updated successfully!'); //flash message for update
+      }
+
+      //Delete listing
+      public function destroy(Listing $listing)
+      {
+          $listing->delete();
+          return redirect('/')->with('message', 'Listing deleted successfully');
+      }
 }

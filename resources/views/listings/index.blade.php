@@ -21,6 +21,8 @@ class="lg:grid lg:grid-cols-2 gap-4 space-y-4 md:space-y-0 mx-4">  <!--grid that
 @endunless <!--end argument-->
 </div>
 
-
+ <div class ='mt-6 p-4'><!--margin top 6, padding 4-->
+  {{$listings->links()}} <!--clickable page numbers-->
+ </div>
 
 @endsection <!--close content wrapper-->

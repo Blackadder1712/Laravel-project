@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('listings', function (Blueprint $table) { //add columns to table 
+        Schema::create('listings', function (Blueprint $table) { //add columns to table /filepaths
             $table->id();
             $table->string('title');
+            $table->string('logo')->nullable();//if no image is fine ;
             $table->string('tags');
             $table->string('company');
             $table->string('location');
