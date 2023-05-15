@@ -52,8 +52,8 @@
                 </div>
             </div>
         </x-card>
-        <x-card>
-            <a href="/listings/{{$listing->id}}/edit"> <!--edit button with pencil logo -->
+<!--       <x-card>
+            <a href="/listings/{{$listing->id}}/edit">
                 <i class="fa-solid fa-pencil"></i>Edit
             </a>
 
@@ -61,11 +61,12 @@
               @csrf
               @method('DELETE')
               <button class="text-red-500">
-                <i class="fa-solid fa-trash"></i> <!-- bin icon-->
+                <i class="fa-solid fa-trash"></i> 
                 Delete
               </button>
-            </form><!--send delete request-->
-        </x-card>
+            </form>
+        </x-card>-->
+    
     </div>
 
 @endsection

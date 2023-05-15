@@ -41,6 +41,12 @@ Route::put('/listings/{listing}', [ListingController::class, 'update'])->middlew
 Route::delete('/listings/{listing}', [ListingController::class, 'destroy'])->middleware("auth");//only user delete listing ;
 
 
+//Manage listings 
+
+Route::get('/listings/manage', [ListingController::class, 'manage'] )->middleware('auth'); //only author can manage listing 
+
+
+
 
 // Single Listing
 Route::get('/listings/{listing}', [ListingController::class, 'show'])->middleware("guest");
