@@ -34,4 +34,40 @@ class UserController extends Controller
         return redirect("/")->with("message", "User created and logged in ");
 
     }
+
+    //Logout User
+    public function logout(Request $request) //remove auth info
+    {
+        auth()->logout();
+        $request->session()->invalidate();//end sesh
+        $request->session()->regenerateToken(); ///new crsf
+
+        return redirect('/')->with('message', 'You have been logged out');
+    }
+
+    //dhow login form 
+
+    public function login()
+    {
+        return view('users.login');
+    }
+
+    //authenticate user
+    public function authenticate(Request $request)
+    {
+        $formFields = $request->validate([ //check email and password 
+            'email' => ['required', 'email'],
+            'password' => 'required' 
+        ]);
+
+        if(auth()->attempt($formFields))
+        {
+            $request->session()->regenerate();//regenerate session id
+
+            return redirect('/')->with('message', 'You are now logged in'); //login 
+
+        }
+
+        return back()->withErrors(['email'=> 'Invalid credentials'])->onlyInput('email'); // if login fails 
+    }
 }

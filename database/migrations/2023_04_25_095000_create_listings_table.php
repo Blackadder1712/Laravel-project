@@ -13,8 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('listings', function (Blueprint $table) { //add columns to table /filepaths
+        Schema::create('listings', function (Blueprint $table) 
+        { 
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');//deleted user posts will be deleted 
             $table->string('title');
             $table->string('logo')->nullable();//if no image is fine ;
             $table->string('tags');
